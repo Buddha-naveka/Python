@@ -74,15 +74,41 @@ else:
     Itog = (np.linalg.matrix_power(A,-1) + np.tril(A) - np.linalg.matrix_power(F,-1)) * K #(A^-1 +G-F^-1)*K    np.tril(A)-получение нижней треугольной матрицы
     print(f'Матрица Итоговая 2 вариант: \n{Itog}')
 
-plt.plot(F)
+'''plt.plot(F)
 plt.show()
 
 plt.matshow(F)
 plt.show()
 
 plt.scatter(F,F)
-plt.show()
+plt.show()'''
 
+# График 1: Тепловая карта
+plt.figure(figsize=(N, N))
+plt.imshow(F, cmap='viridis')
+plt.colorbar()
+plt.title("Тепловая карта матрицы F")
+plt.xlabel("Столбец")
+plt.ylabel("Строка")
+
+# График 2: Гистограмма
+plt.figure(figsize=(N, N))
+plt.hist(F.flatten(), bins=N)
+plt.title("Гистограмма элементов матрицы F")
+plt.xlabel("Столбец")
+plt.ylabel("Строка")
+
+# График 3: Поверхность
+x, y = np.indices(F.shape)
+plt.figure(figsize=(N, N))
+ax = plt.axes(projection='3d')
+ax.plot_surface(x, y, F, cmap='viridis')
+ax.set_xlabel("Столбец")
+ax.set_ylabel("Строка")
+ax.set_zlabel("Значение")
+ax.set_title("Поверхность матрицы F")
+
+plt.show()
 
 
             
