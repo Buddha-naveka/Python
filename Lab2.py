@@ -58,7 +58,6 @@ else:
         for i in range(N//2,N):
             F[i][j], F[j][i] = F[j][i], F[i][j]
 
-
 print(f'Матрица F: \n{F}')
 
 # Математика
@@ -73,15 +72,6 @@ if opr > sum_diag:
 else:
     Itog = (np.linalg.matrix_power(A,-1) + np.tril(A) - np.linalg.matrix_power(F,-1)) * K #(A^-1 +G-F^-1)*K    np.tril(A)-получение нижней треугольной матрицы
     print(f'Матрица Итоговая 2 вариант: \n{Itog}')
-
-'''plt.plot(F)
-plt.show()
-
-plt.matshow(F)
-plt.show()
-
-plt.scatter(F,F)
-plt.show()'''
 
 # График 1: Тепловая карта
 plt.figure(figsize=(N, N))
