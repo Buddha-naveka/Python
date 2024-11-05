@@ -10,13 +10,15 @@ def is_float(s):
         return True
     except ValueError:
         return False
-file = open('test.txt', 'r')
-s =file.readline().split()
-while s!=0:
-    for i in range(len(s)):
-        string = str(s[i])
-        if is_float(s) and string.isnumeric() == False:
-            result = string.replace('.', ',', 1)
-            print(result)
+with open('test.txt', 'r') as file:
+    while True:
+        s =file.readline().split()
+        for i in range(len(s)):
+            string = str(s[i])
+            if is_float(s) and string.isnumeric() == False:
+                result = string.replace('.', ',', 1)
+                print(result)
+        if not s:
+            break
            
-    s =file.readline().split()
+    
