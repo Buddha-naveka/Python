@@ -51,7 +51,8 @@ while perem !=3:
                                                                 sum2 +=1
                                                                 h.append(spisok)
                                                                 spisok =[]
-            return h, sum2
+            print(f'Количество вариантов: {sum2}')
+            return h
         print(fruit(fruits,spisok))
         n =timeit.timeit('fruit(fruits,spisok)', globals = globals(), number =1)
         print(f"Время: {n}")
