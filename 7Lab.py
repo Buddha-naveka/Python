@@ -5,9 +5,37 @@ from itertools import permutations
 
 
 def click_button():
- 
+
+    shugar ={}
+
+    def is_float(f):
+        try:
+            float(f)
+            return True
+        except ValueError:
+            return False
+    perem = 0
     fruits = []
-    sugar = {0:9.9, 1:7.5, 2:2, 3:12, 4:13.7, 5:9.92, 6:13, 7:1, 8:5, 9:7}
+    data_shugar = str(vvod1.get("1.0", "end"))
+    probel_shugar = data_shugar.split()
+    if len(probel_shugar) ==10:
+        for i in range(len(probel_shugar)):
+            f = probel_shugar[i]
+            if is_float(f):
+                f = float(f)
+                shugar[i] = f
+            else:
+                perem = 1
+                showinfo(title="Ошибка", message="Данные введены не корректно, запись должна содержать  ненцужных символов") 
+    else:
+        showinfo(title="Ошибка", message="Вы ввели не 10 чисел")
+        perem =1
+    print(shugar)
+    if perem ==1:
+        btn["state"] = ["active"]
+        return
+
+
     data = str(vvod.get("1.0", "end"))
     probel = data.split()
 
@@ -52,13 +80,13 @@ def click_button():
                                                                 for m in range(len(fruits)):
                                                                     if m != i and m!=o and m!=p and m!=j and m!=k and m!=l:
                                                                         sum = 0
-                                                                        spisok.append(fruits[i]); sum += sugar[i] * 1 
-                                                                        spisok.append(fruits[o]); sum += sugar[o] * 2
-                                                                        spisok.append(fruits[p]); sum += sugar[p] * 3
-                                                                        spisok.append(fruits[j]); sum += sugar[j] * 4
-                                                                        spisok.append(fruits[k]); sum += sugar[k] * 5
-                                                                        spisok.append(fruits[l]); sum += sugar[l] * 6
-                                                                        spisok.append(fruits[m]); sum += sugar[m] * 7
+                                                                        spisok.append(fruits[i]); sum += shugar[i] * 1 
+                                                                        spisok.append(fruits[o]); sum += shugar[o] * 2
+                                                                        spisok.append(fruits[p]); sum += shugar[p] * 3
+                                                                        spisok.append(fruits[j]); sum += shugar[j] * 4
+                                                                        spisok.append(fruits[k]); sum += shugar[k] * 5
+                                                                        spisok.append(fruits[l]); sum += shugar[l] * 6
+                                                                        spisok.append(fruits[m]); sum += shugar[m] * 7
                                                                         sum2 +=1
                                                                         if sum < min1:
                                                                             naim =[]
@@ -86,7 +114,9 @@ window.geometry('600x550+650+200')
 window.configure(bg = '#B0C4DE')
 window.resizable(False,False)
 text = tk.Label(text = 'Введите 10 фруктов: ',bg ='#5F9EA0', padx =10, pady =10, font=('Arial',14))
+text1 = tk.Label(text = 'Введите сахорность фрутов(10 раз): ',bg ='#5F9EA0', padx =10, pady =10, font=('Arial',14))
 vvod = tk.Text(font=('Arial',14),width= 40)
+vvod1 = tk.Text(font=('Arial',14),width= 40)
 btn = tk.Button(
     text = "Готово!",
     command = lambda: click_button()
@@ -95,6 +125,8 @@ btn = tk.Button(
 text.pack(ipadx=30, ipady=10,padx= 30,pady= 30)
 vvod.place(x = 80, y =130, height= 100)
 btn.place(x = 265, y = 450, width = 80, height = 40)
+text1.place(x = 120, y = 250)
+vvod1.place(x = 80, y =320, height= 100)
 window.mainloop()
 
 
