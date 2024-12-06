@@ -4,6 +4,8 @@
 раскраска
 перемещение на плоскости
 """
+d ={0:'red', 1:"blue", 2:'green', 3:'black', 4:'yellow'} # Цвета
+
 import tkinter as tk
 from tkinter.messagebox import showinfo
 
@@ -35,6 +37,15 @@ def click_button1():
             showinfo(title="Проверка", message="Фигуры пересекаются") 
     else:
         showinfo(title="Ошибка", message="Данные введены не корректно") 
+
+def recolr():
+     rect1.recolor(d[0])
+def recolb():
+     rect1.recolor(d[1])
+def recolr1():
+     rect2.recolor(d[0])
+def recolb1():
+     rect2.recolor(d[1])
 #----------------------------------------Class------------------------------------------------------
 class Rectangle:
     def __init__(self, canvas, x, y, x1, y1, color="black"):
@@ -62,30 +73,46 @@ class Rectangle:
         x_overlap = ((self.x < other.x1) and (self.x1 > other.x)) 
         y_overlap = ((self.y < other.y1) and (self.y1 > other.y)) 
         return x_overlap and y_overlap
-#------------------------------------------------------------------------------------------------------
+    
+    def recolor(self, new_color):
+        self.color = new_color
+        self.canvas.itemconfig(self.id, fill=self.color)
+        self.canvas.update()
+#------------------------------------------Ввод------------------------------------------------------------
+
 perem = 0
-while perem !=1:
-    print("Введите x,y,x1,y1 для 1 фигуры:")
-    i = [int(a) for a in input().split()]
-    if len(i) ==4:
-        x,y,x1,y1 = i[0],i[1],i[2],i[3]
-        perem =1
-    else:
-        print('Вы ввели некоректные данные, попробуйте ещё раз')
-perem = 0
-while perem !=1:
-    print("Введите x,y,x1,y1 для 2 фигуры:")
-    i = [int(a) for a in input().split()]
-    if len(i) ==4:
-        x_2,y_2,x1_2,y1_2 = i[0],i[1],i[2],i[3]
-        perem =1
-    else:
-        print('Вы ввели некоректные данные, попробуйте ещё раз')
+with open('text', 'r') as file:
+    data =file.readline().split()
+if len(data) ==10:
+    for i in range(len(data)):
+        string = str(data[i])
+        if string.isnumeric() == True:
+            perem =1
+        else: 
+            showinfo(title="Ошибка", message="Это не числа")
+            perem = 0
+    if perem ==1:
+        x,y,x1,y1,col,x_2,y_2,x1_2,y1_2,col1 = map(int, data)
+        color = d[col]
+        color1 = d[col1]
+else: 
+    showinfo(title="Ошибка", message="Чисел не 10")
 
 window = tk.Tk()
 window.title("9Lab")
-window.geometry('600x650+650+200')
+window.geometry('750x650+650+200')
 window.resizable(False,False)
+
+btnr = tk.Radiobutton(text='Красный 1', value= 'Красный 1', command= lambda: recolr())
+btnr.place(x = 640, y = 20)
+btnb = tk.Radiobutton(text='Синий 1', value= 'Синий 1', command= lambda: recolb())
+btnb.place(x = 640, y = 40)
+
+btnr1 = tk.Radiobutton(text='Красный 2', value= 'Красный 2', command= lambda: recolr1())
+btnr1.place(x = 640, y = 80)
+btnb1 = tk.Radiobutton(text='Синий 2', value= 'Синий 2', command= lambda: recolb1())
+btnb1.place(x = 640, y = 100)
+
 #---------------------------------------Оформление низ----------------------------------------------
 text = tk.Label(text = 'Введите смещение на x и y первой и/или второй фигуры : ',font=('Arial',14))
 text.place(x =10, y = 560, height= 40)
@@ -100,12 +127,11 @@ btn1 = tk.Button(text = "Готово!",command = lambda: click_button1())
 btn1.place(x = 480, y = 600, width = 80, height = 30)
 #---------------------------------------------------------------------------------------
 canvas = tk.Canvas(window, width=600, height=550, bg="lightblue")
-canvas.pack()
-rect1 = Rectangle(canvas, x, y, x1, y1, "red")
+canvas.pack(anchor='nw')
+rect1 = Rectangle(canvas, x, y, x1, y1, color)
 #rect1.visualize()
-rect2 = Rectangle(canvas, x_2, y_2, x1_2, y1_2, "blue")
+rect2 = Rectangle(canvas, x_2, y_2, x1_2, y1_2, color1)
 #rect2.visualize()
 if rect1.intersects(rect2):
     showinfo(title="Проверка", message="Фигуры пересекаются") 
 window.mainloop()
-
