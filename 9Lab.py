@@ -95,7 +95,12 @@ class TicTacToe:
 
     def bot_move(self):
         
-
+        for i in range(9):
+            if self.board[i] == "" and self.check_potential_win(self.bot_symbol, i):
+                self.board[i] = self.bot_symbol
+                self.buttons[i].config(text=self.bot_symbol)
+                return
+            
         for i in range(9):
             if self.board[i] == "" and self.check_potential_win(self.player_symbol, i):
                 self.board[i] = self.bot_symbol
