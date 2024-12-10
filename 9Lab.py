@@ -146,5 +146,5 @@ class Nolik:
 
 root = tk.Tk()
 root.geometry('+650+200')
-game = TicTacToe(root)
+game = Nolik(root)
 root.mainloop()
