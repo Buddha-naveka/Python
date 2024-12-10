@@ -2,7 +2,7 @@ import tkinter as tk
 import random
 from tkinter.messagebox import showinfo
 
-class TicTacToe:
+class Nolik:
     def __init__(self, master):
         self.master = master
         master.title("Крестики-Нолики")
